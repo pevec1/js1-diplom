@@ -72,6 +72,19 @@ function massive(board) {
     if (obj.horiz[0][i] == n || obj.vertic.k[i] == n || obj.horiz[1][i] == n || obj.vertic.l[i] == n || obj.diag[0] == n || obj.diag[1] == n || obj.diag2[0] == n || obj.diag2[1] == n) {
       showWinner(activePlayer);
     }
+
+    for(let i=0; i < n; i++){ 
+      for(let j=0; j < n; j++) {
+      if (board[i][j] != '') {
+        count++;
+        //alert(count);
+        }
+      }
+    }
+      if (count == 45) {
+        showNobody();
+    }
+  
   }
 }
 

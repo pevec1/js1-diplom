@@ -27,6 +27,12 @@ function showWinner(winner) {
   modalEl.classList.remove('hidden');
 }
 
+function showNobody() {
+  let header = modalEl.getElementsByTagName('h2')[0];
+  header.textContent = `Оба лузеры!`;
+  modalEl.classList.remove('hidden');
+}
+
 function renderBoard(board) {
   const fields = [];
   for (let [i, row] of board.entries()) {
