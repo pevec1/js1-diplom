@@ -1,0 +1,102 @@
+https://replit.com/@pevec1/js-Diplom-startovyi-kod#logic.js
+
+let players = ['x', 'o'];
+let activePlayer = 0;
+let board = [
+  ['', '', ''],
+  ['', '', ''],
+  ['', '', '']
+];
+
+function startGame() {
+  board = [
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
+  ];
+  activePlayer = 1;
+  renderBoard(board);
+};
+
+function click(x, o) {
+  if (activePlayer == 1) {
+    board[x][o] = 'x';
+    renderBoard(board);
+    massive(board);
+    activePlayer = 0;
+  } else {
+    board[x][o] = 'o';
+    renderBoard(board);
+    massive(board);
+    activePlayer = 1;
+  }
+  if (win == 1) {
+    showWinner();
+  }
+}
+
+function massive(board) {
+
+  n = board.length;
+  let horiz = [];
+  let horizo = [];
+  let diag = 0;
+  let diago = 0;
+  let diag2 = 0;
+  let diago2 = 0;
+  horiz.length = n;
+  horizo.length = n;
+  //diag.length = n;
+  //diago.length = n;
+  let vertic = [];
+  let vertico = [];
+  vertic.length = n;
+  vertico.length = n;
+  for (let i = 0; i < n; i++) {
+    horiz[i] = 0;
+    horizo[i] = 0;
+    vertic[i] = 0;
+    vertico[i] = 0;
+ //   diag[i] = 0;
+ //   diago[i] = 0;
+  }
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (board[i][j] == 'x') {
+        horiz[i] = horiz[i] + 1;
+        // alert(i+" " + j + " " +board[i][j]+ " " +horiz[i]);
+      } else if (board[i][j] == 'o') {
+        horizo[i] = horizo[i] + 1;
+        //  alert(i+" " + j + " " +board[i][j]+ " " +horizo[i]);
+      }
+      if (board[j][i] == 'x') {
+        vertic[i]++;
+      } else if (board[j][i] == 'o') {
+        vertico[i]++;
+      } 
+      if (i == j && board[i][j] == 'x') {
+        diag = diag + 1;
+        //alert(i + " " + j + " " + board[i][j] + " diag " + diag);
+      } else if (i == j && board[i][j] == 'o') {
+        diago = diago + 1;
+        //alert(i + " " + j + " " + board[i][j] + " diago " + diago);
+      } 
+      if (j==n-i-1&&board[i][j] == 'x') {
+         diag2 = diag2 + 1;
+        //alert(i + " " + j + " " + board[i][j] + " diag2 " + diag2);
+      } else if (j==n-i-1&&board[i][j] == 'o') {
+         diago2 = diago2 + 1;
+        //alert(i + " " + j + " " + board[i][j] + " diago2 " + diago2);
+      }
+
+    }
+
+    if (horiz[i] == n || vertic[i] == n || horizo[i] == n || vertico[i] == n || diag == n || diago == n || diag2 == n || diago2 == n) {
+      showWinner(activePlayer);
+    }
+  }
+}
+
+startGame();
+
+click(x, o);
