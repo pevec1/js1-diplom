@@ -9,6 +9,8 @@ function startGame() {
     ['', '', ''],
     ['', '', '']
   ];
+  count = 0;
+  activePlayer = 0;
   renderBoard(board);
 };
 
@@ -28,7 +30,7 @@ function massive(board) {
   n = board.length;
   let obj = {
     horiz: [[0], [0]],
-    vertic: {k:[], l:[]},
+    vertic: { k: [], l: [] },
     diag: [0, 0],
     diag2: [0, 0]
   }
@@ -38,9 +40,9 @@ function massive(board) {
     obj.horiz[1][i] = 0;
     obj.vertic.k[i] = 0;
     obj.vertic.l[i] = 0;
-   }
+  }
 
-  
+
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < n; j++) {
       if (board[i][j] == 'x') {
@@ -66,19 +68,22 @@ function massive(board) {
       } else if (j == n - i - 1 && board[i][j] == 'o') {
         obj.diag2[1]++;
       }
-    if (board[i][j] != '') {
-      count++;
-      //alert(count);
+      if (board[i][j] != '') {
+        //count++;
+        //alert(count);
       }
 
     }
 
     if (obj.horiz[0][i] == n || obj.vertic.k[i] == n || obj.horiz[1][i] == n || obj.vertic.l[i] == n || obj.diag[0] == n || obj.diag[1] == n || obj.diag2[0] == n || obj.diag2[1] == n) {
       showWinner(activePlayer);
-    }
-    if (count == 45) {
-      showNobody();
+    } else {
+        count++;
   }
+   // alert(count);
+    if (count >= 27) {
+      showNobody();
+    }
 
   }
 }
@@ -86,3 +91,4 @@ function massive(board) {
 startGame();
 
 click(row, col);
+
