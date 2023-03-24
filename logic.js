@@ -1,64 +1,80 @@
-let players = ["x", "o"];
+let players = ['x', 'o'];
 let activePlayer = 0;
-let board = [
-  ["", "", ""],
-  ["", "", ""],
-  ["", "", ""],
-];
+let board;
 
 function startGame() {
   board = [
-    ["", "", ""],
-    ["", "", ""],
-    ["", "", ""],
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
   ];
-  activePlayer = "x";
+  activePlayer = 0;
   renderBoard(board);
-}
+};
 
-function click(x, o) {
-  if (activePlayer == "x") {
-    board[x][o] = activePlayer;
-    renderBoard(board);
-    massive(board);
-    activePlayer = "o";
+function click(row, col) {
+  board[row][col] = players[activePlayer];
+  renderBoard(board);
+  massive(board);
+  if (activePlayer == 0) {
+    activePlayer = 1;
   } else {
-    board[x][o] = activePlayer;
-    renderBoard(board);
-    massive(board);
-    activePlayer = "x";
-  }
-  if (win == 1) {
-    showWinner();
+    activePlayer = 0;
   }
 }
 
 function massive(board) {
-  let horiz = [];
-  let horizo = [];
-  horiz.length = 3;
-  horizo.length = 3;
-  for (let i = 0; i < board.length; i++) {
-    horiz[i] = 0;
-    horizo[i] = 0;
+
+  n = board.length;
+  let obj = {
+    horiz: [[0], [0]],
+    vertic: {k:[], l:[]},
+    diag: [0, 0],
+    diag2: [0, 0]
   }
-  for (let i = 0; i < board.length; i++) {
-    for (let j = 0; j < board.length; j++) {
-      if (board[i][j] == "x") {
-        horiz[i] = horiz[i] + 1;
-        // alert(i+" " + j + " " +board[i][j]+ " " +horiz[i]);
-      } else if (board[i][j] == "o") {
-        horizo[i] = horizo[i] + 1;
-        //  alert(i+" " + j + " " +board[i][j]+ " " +horizo[i]);
+
+  for (let i = 0; i < n; i++) {
+    obj.horiz[0][i] = 0;
+    obj.horiz[1][i] = 0;
+    obj.vertic.k[i] = 0;
+    obj.vertic.l[i] = 0;
+   }
+
+  
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (board[i][j] == 'x') {
+        obj.horiz[0][i]++;
+        // alert(obj.horiz[0][i] + " и " + obj.horiz[0][j]);
+      } else if (board[i][j] == 'o') {
+        obj.horiz[1][i]++;
       }
+      if (board[j][i] == 'x') {
+        obj.vertic.k[i]++;
+
+        //alert(obj.vertic.k[i] + " и " + obj.vertic.k[j]);
+      } else if (board[j][i] == 'o') {
+        obj.vertic.l[i]++;
+      }
+      if (i == j && board[i][j] == 'x') {
+        obj.diag[0]++;
+      } else if (i == j && board[i][j] == 'o') {
+        obj.diag[1]++;
+      }
+      if (j == n - i - 1 && board[i][j] == 'x') {
+        obj.diag2[0]++;
+      } else if (j == n - i - 1 && board[i][j] == 'o') {
+        obj.diag2[1]++;
+      }
+
     }
 
-    if (horiz[i] == 3) {
-      alert("winner " + activePlayer);
+    if (obj.horiz[0][i] == n || obj.vertic.k[i] == n || obj.horiz[1][i] == n || obj.vertic.l[i] == n || obj.diag[0] == n || obj.diag[1] == n || obj.diag2[0] == n || obj.diag2[1] == n) {
+      showWinner(activePlayer);
     }
   }
 }
 
 startGame();
 
-click(x, o);
+click(row, col);
