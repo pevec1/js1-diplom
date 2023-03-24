@@ -1,6 +1,7 @@
 let players = ['x', 'o'];
 let activePlayer = 0;
 let board;
+let count = 0;
 
 function startGame() {
   board = [
@@ -8,7 +9,6 @@ function startGame() {
     ['', '', ''],
     ['', '', '']
   ];
-  activePlayer = 0;
   renderBoard(board);
 };
 
@@ -66,25 +66,20 @@ function massive(board) {
       } else if (j == n - i - 1 && board[i][j] == 'o') {
         obj.diag2[1]++;
       }
+    if (board[i][j] != '') {
+      count++;
+      //alert(count);
+      }
 
     }
 
     if (obj.horiz[0][i] == n || obj.vertic.k[i] == n || obj.horiz[1][i] == n || obj.vertic.l[i] == n || obj.diag[0] == n || obj.diag[1] == n || obj.diag2[0] == n || obj.diag2[1] == n) {
       showWinner(activePlayer);
     }
+    if (count == 45) {
+      showNobody();
+  }
 
-    for(let i=0; i < n; i++){ 
-      for(let j=0; j < n; j++) {
-      if (board[i][j] != '') {
-        count++;
-        //alert(count);
-        }
-      }
-    }
-      if (count == 45) {
-        showNobody();
-    }
-  
   }
 }
 
